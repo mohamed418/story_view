@@ -35,6 +35,7 @@ class StoryItem {
 
   /// The page content
   final Widget view;
+
   StoryItem(
     this.view, {
     required this.duration,
@@ -79,7 +80,7 @@ class StoryItem {
             bottom: Radius.circular(roundedBottom ? 8 : 0),
           ),
         ),
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 24,
           vertical: 16,
         ),
@@ -99,7 +100,7 @@ class StoryItem {
         //color: backgroundColor,
       ),
       shown: shown,
-      duration: duration ?? Duration(seconds: 3),
+      duration: duration ?? const Duration(seconds: 3),
     );
   }
 
@@ -132,10 +133,10 @@ class StoryItem {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: double.infinity,
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     bottom: 24,
                   ),
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 24,
                     vertical: 8,
                   ),
@@ -143,13 +144,13 @@ class StoryItem {
                   child: caption != null
                       ? Text(
                           caption,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             color: Colors.white,
                           ),
                           textAlign: TextAlign.center,
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ),
               ),
             )
@@ -157,7 +158,7 @@ class StoryItem {
         ),
       ),
       shown: shown,
-      duration: duration ?? Duration(seconds: 3),
+      duration: duration ?? const Duration(seconds: 3),
     );
   }
 
@@ -191,12 +192,13 @@ class StoryItem {
                   requestHeaders: requestHeaders,
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Container(
-                      child: caption == null ? SizedBox() : caption,
+                      child: caption == null ? const SizedBox() : caption,
                       width: double.infinity,
                     ),
                   ),
@@ -211,7 +213,7 @@ class StoryItem {
         ),
       ),
       shown: shown,
-      duration: duration ?? Duration(seconds: 3),
+      duration: duration ?? const Duration(seconds: 3),
     );
   }
 
@@ -243,17 +245,19 @@ class StoryItem {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(bottom: 24),
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                    margin: const EdgeInsets.only(bottom: 24),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                     color:
                         caption != null ? Colors.black54 : Colors.transparent,
                     child: caption != null
                         ? Text(
                             caption,
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.white),
                             textAlign: TextAlign.center,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ),
                 ),
               )
@@ -261,7 +265,7 @@ class StoryItem {
           ),
         ),
         shown: shown,
-        duration: duration ?? Duration(seconds: 10));
+        duration: duration ?? const Duration(seconds: 10));
   }
 
   /// Shorthand for creating a story item from an image provider such as `AssetImage`
@@ -294,10 +298,10 @@ class StoryItem {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       bottom: 24,
                     ),
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 8,
                     ),
@@ -306,13 +310,13 @@ class StoryItem {
                     child: caption != null
                         ? Text(
                             caption,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                               color: Colors.white,
                             ),
                             textAlign: TextAlign.center,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ),
                 ),
               )
@@ -320,7 +324,7 @@ class StoryItem {
           ),
         ),
         shown: shown,
-        duration: duration ?? Duration(seconds: 3));
+        duration: duration ?? const Duration(seconds: 3));
   }
 
   /// Shorthand for creating an inline story item from an image provider such as `AssetImage`
@@ -349,24 +353,91 @@ class StoryItem {
               fit: BoxFit.cover,
             )),
         child: Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             bottom: 16,
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 24,
             vertical: 8,
           ),
           child: Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-              child: caption == null ? SizedBox() : caption,
+              child: caption == null ? const SizedBox() : caption,
               width: double.infinity,
             ),
           ),
         ),
       ),
       shown: shown,
-      duration: duration ?? Duration(seconds: 3),
+      duration: duration ?? const Duration(seconds: 3),
+    );
+  }
+
+  factory StoryItem.custom(
+    List<ImageProvider> images, {
+    Key? key,
+    Text? caption,
+    bool shown = false,
+    bool roundedTop = true,
+    bool roundedBottom = false,
+    Duration? duration,
+  }) {
+    return StoryItem(
+      Container(
+        key: key,
+        // decoration: BoxDecoration(
+        //   color: Colors.grey[100],
+        //   borderRadius: BorderRadius.vertical(
+        //     top: Radius.circular(roundedTop ? 8 : 0),
+        //     bottom: Radius.circular(roundedBottom ? 8 : 0),
+        //   ),
+        //   image: DecorationImage(
+        //     image: images[0],
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 250,
+              width: double.infinity,
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  childAspectRatio: 2 / 2.8,
+                ),
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  return Image(image: images[index],fit: BoxFit.fill,);
+                },
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                bottom: 16,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 8,
+              ),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: caption ?? const SizedBox(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      shown: shown,
+      duration: duration ?? const Duration(seconds: 3),
     );
   }
 }
@@ -407,6 +478,7 @@ class StoryView extends StatefulWidget {
 
   // Indicator Color
   final Color? indicatorColor;
+
   // Indicator Foreground Color
   final Color? indicatorForegroundColor;
 
@@ -599,7 +671,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
     } else {
       // this is the last page, progress animation should skip to end
       _animationController!
-          .animateTo(1.0, duration: Duration(milliseconds: 10));
+          .animateTo(1.0, duration: const Duration(milliseconds: 10));
     }
   }
 
@@ -615,7 +687,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
 
   void _holdNext() {
     _nextDebouncer?.cancel();
-    _nextDebouncer = Timer(Duration(milliseconds: 500), () {});
+    _nextDebouncer = Timer(const Duration(milliseconds: 500), () {});
   }
 
   @override
@@ -635,7 +707,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                 bottom: widget.inline ? false : true,
                 // we use SafeArea here for notched and bezeles phones
                 child: Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,
                   ),
@@ -827,11 +899,11 @@ class StoryProgressIndicator extends StatelessWidget {
         this.indicatorHeight,
       ),
       foregroundPainter: IndicatorOval(
-        this.indicatorForegroundColor?? Colors.white.withOpacity(0.8),
+        this.indicatorForegroundColor ?? Colors.white.withOpacity(0.8),
         this.value,
       ),
       painter: IndicatorOval(
-        this.indicatorColor?? Colors.white.withOpacity(0.4),
+        this.indicatorColor ?? Colors.white.withOpacity(0.4),
         1.0,
       ),
     );
@@ -850,7 +922,7 @@ class IndicatorOval extends CustomPainter {
     canvas.drawRRect(
         RRect.fromRectAndRadius(
             Rect.fromLTWH(0, 0, size.width * this.widthFactor, size.height),
-            Radius.circular(3)),
+            const Radius.circular(3)),
         paint);
   }
 
